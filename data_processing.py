@@ -62,3 +62,20 @@ def renombrar_influencia(influencia):
         return 'APRUEBA COMPRAS'
     else:
         return 'OTROS'
+    
+def renombrar_medio(medio):
+    if pd.isna(medio):
+        return 'INFORMACION NO DISPONIBLE'
+    medio_str = str(medio).upper()
+    
+    redes = ['FACEBOOK', 'TWITTER', 'INSTAGRAM','LINKEDIN', 'TV', 'TELEVISIÓN', 'WEB', 'TIK TOK']
+    for name in redes:
+        if name in medio_str:
+            return 'REDES SOCIALES'  
+    if 'CORREO' in medio_str or 'MAILING' in medio_str:
+        return 'EMAIL'
+    elif 'INVITED' in medio_str or 'INVITADO' in medio_str:
+        return 'INVITADO POR EXPOSITOR'
+    else:
+        return 'OTROS'
+    

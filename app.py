@@ -1,14 +1,15 @@
 import streamlit as st 
 import pandas as pd 
 import plotly_express as px
-from plotting import plot_asistencia, plot_categoria, plot_influencia,plot_registros_evento, plot_asistencia_registros
-from data_processing import load_data, mapear_tipo, mapear_asistencia, renombrar_cargos, renombrar_influencia
+from plotting import plot_asistencia, plot_categoria, plot_influencia,plot_registros_evento, plot_asistencia_registros, plot_pie_chart
+from data_processing import load_data, mapear_tipo, mapear_asistencia, renombrar_cargos, renombrar_influencia, renombrar_medio
 
 ITM = load_data(st.secrets['EXCEL_FILE_PATH'])
 ITM['Asistencia'] = ITM['Asistencia'].apply(mapear_asistencia)
 ITM = mapear_tipo(ITM)
 ITM['Cargo'] = ITM['Cargo'].apply(renombrar_cargos)
 ITM['Nivel de influencia'] = ITM['Nivel de influencia'].apply(renombrar_influencia)
+ITM['¿Cómo se enteró del evento?'] = ITM['¿Cómo se enteró del evento?'].apply(renombrar_medio)
 
 
 def main_app():
@@ -54,5 +55,13 @@ def main_app():
 
     fig_influencia = plot_influencia(ITM)
     st.plotly_chart(fig_influencia, use_container_width= True)
+
+    ###Plot Pie Chart##3
+    fig_2022_medio = plot_pie_chart(ITM, '2022')
+    st.plotly_chart(fig_2022_medio, use_container_width=True)
+
+    fig_2023_medio = plot_pie_chart(ITM, '2023')
+    st.plotly_chart(fig_2023_medio, use_container_width=True)
+
 
 main_app()

@@ -40,3 +40,14 @@ def plot_asistencia_registros(df):
                  title='Asistentes por Evento')
 
     return fig 
+
+def plot_pie_chart(df, evento):
+    df['FechaEvento'] = df['FechaEvento'].astype(str)
+    table = df.groupby(['¿Cómo se enteró del evento?', 'FechaEvento', 'Asistencia']).size().reset_index(name='Cantidad')
+    table = table[table['Asistencia'].str.contains('SI')]
+    table_evento = table[table['FechaEvento'].str.contains(evento)]
+    pie_data = table_evento.groupby('¿Cómo se enteró del evento?')['Cantidad'].sum().reset_index()
+    fig = px.pie(pie_data, values='Cantidad', names='¿Cómo se enteró del evento?', title=f'Distribucion de medios en {evento}')
+    return fig
+
+
