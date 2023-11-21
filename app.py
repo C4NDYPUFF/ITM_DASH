@@ -4,7 +4,7 @@ import plotly.express as px
 from plotting import plot_asistencia, plot_categoria, plot_influencia,plot_registros_evento, plot_asistencia_registros, plot_pie_chart
 from data_processing import load_data, mapear_tipo, mapear_asistencia, renombrar_cargos, renombrar_influencia, renombrar_medio
 
-ITM = load_data(st.secrets('EXCEL_FILE_PATH'))
+ITM = load_data(st.secrets['EXCEL_FILE_PATH'])
 ITM['Asistencia'] = ITM['Asistencia'].apply(mapear_asistencia)
 ITM = mapear_tipo(ITM)
 ITM['Cargo'] = ITM['Cargo'].apply(renombrar_cargos)
