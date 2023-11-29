@@ -1,5 +1,6 @@
 import pandas as pd 
 import streamlit as st
+import plotly.graph_objs as go
 
 
 def load_data(file_path):
@@ -79,3 +80,24 @@ def renombrar_medio(medio):
     else:
         return 'OTROS'
     
+def load_data2_and_plot(file_path):
+    df = pd.read_excel(file_path)
+    df['Fecha de registro'] = pd.to_datetime(df['Fecha de registro'], format='%d/%m/%Y')
+    # Resample to get counts by week
+    weekly_counts = df.resample('W-Mon', on='Fecha de registro').size()
+    # Reset index to convert the weekly_counts to a DataFrame
+    weekly_counts = weekly_counts.reset_index()
+    weekly_counts.columns = ['Semana', 'Cantidad']
+    # Label the weeks sequentially
+    weekly_counts['Week Label'] = ['Semana ' + str(i+1) for i in range(len(weekly_counts))]
+
+    # Create a bar chart with Plotly
+    fig = go.Figure()
+    fig.add_trace(go.Bar(x=weekly_counts['Week Label'], y=weekly_counts['Cantidad'], name='Bar'))
+
+    # Add a line plot over the bar chart
+    fig.add_trace(go.Scatter(x=weekly_counts['Week Label'], y=weekly_counts['Cantidad'], mode='lines+markers', name='Line'))
+
+    # Update layout
+    fig.update_layout(title='Conteo de registros por semana', xaxis_title='Semanas', yaxis_title='Cantidad')
+    return fig

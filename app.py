@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd 
 import plotly.express as px
 from plotting import plot_asistencia, plot_categoria, plot_influencia,plot_registros_evento, plot_asistencia_registros, plot_pie_chart
-from data_processing import load_data, mapear_tipo, mapear_asistencia, renombrar_cargos, renombrar_influencia, renombrar_medio
+from data_processing import load_data2_and_plot,load_data, mapear_tipo, mapear_asistencia, renombrar_cargos, renombrar_influencia, renombrar_medio
 
 ITM = load_data(st.secrets['EXCEL_FILE_PATH'])
 ITM['Asistencia'] = ITM['Asistencia'].apply(mapear_asistencia)
@@ -57,6 +57,9 @@ def main_app(df):
 
     fig_influencia = plot_influencia(ITM)
     st.plotly_chart(fig_influencia, use_container_width= True)
+
+    fig_semana = load_data2_and_plot(st.secrets['EXCEL_FILE_PATH2'])
+    st.plotly_chart(fig_semana, use_container_width=True)
 
     ###Plot Pie Chart##3
     fig_2022_medio = plot_pie_chart(ITM, '2022')

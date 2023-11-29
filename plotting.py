@@ -1,6 +1,7 @@
 import plotly.express as px 
 from data_processing import load_data, mapear_asistencia, mapear_tipo, renombrar_cargos
 
+
 def plot_asistencia(df):
 
     table = df.groupby(['Empresa', 'Asistencia', 'FechaEvento']).size().reset_index(name='Cantidad')
