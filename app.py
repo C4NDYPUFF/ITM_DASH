@@ -49,14 +49,14 @@ def main_app(df):
 
     st.plotly_chart(fig, use_container_width=True)
 
-    fig_asistencia = plot_asistencia(ITM)
-    st.plotly_chart(fig_asistencia, use_container_width=True)
+    # fig_asistencia = plot_asistencia(ITM)
+    # st.plotly_chart(fig_asistencia, use_container_width=True)
 
     fig_categoria = plot_categoria(ITM)
     st.plotly_chart(fig_categoria, use_container_width= True)
 
-    fig_influencia = plot_influencia(ITM)
-    st.plotly_chart(fig_influencia, use_container_width= True)
+    # fig_influencia = plot_influencia(ITM)
+    # st.plotly_chart(fig_influencia, use_container_width= True)
 
     fig_semana = load_data2_and_plot(st.secrets['EXCEL_FILE_PATH2'])
     st.plotly_chart(fig_semana, use_container_width=True)

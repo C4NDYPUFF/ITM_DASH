@@ -77,8 +77,10 @@ def renombrar_medio(medio):
         return 'EMAIL'
     elif 'INVITED' in medio_str or 'INVITADO' in medio_str:
         return 'INVITADO POR EXPOSITOR'
+    elif 'PRESS' in medio_str or 'OTHER' in medio_str:
+        return 'PRENSA'
     else:
-        return 'OTROS'
+        return medio_str
     
 def load_data2_and_plot(file_path):
     df = pd.read_excel(file_path)
